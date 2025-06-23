@@ -69,7 +69,7 @@ The model uses YOLOv4 architecture with:
 - **Optimizer**: Adam
 - **Learning Rate**: 0.001
 - **Batch Size**: 64
-- **Epochs**: 20
+- **Epochs**: 60
 - **L2 Regularization**: 0.001
 - **Validation Frequency**: Every 5 epochs
 
