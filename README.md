@@ -21,28 +21,29 @@ The project was developed as part of a MathWorks Deep Learning for Object Detect
 - **Threshold Optimization**: Automated detection threshold tuning for best performance
 - **Data Analysis Tools**: Outlier detection and bounding box statistics analysis
 
-## Model Performance
+## Model Performance (Test Data Results)
 
 | Class | Objects | AP@0.5 | AP@0.25 |
 |-------|---------|--------|---------|
-| EV | 223 | 0.8666 | 0.9430 |
-| Charger | 106 | 0.6766 | 0.8184 |
-| Accessible | 167 | 0.6756 | 0.7627 |
+| EV | 58 | 0.5854 | 0.6523 |
+| Charger | 29 | 0.0345 | 0.0690 |
+| Accessible | 48 | 0.2348 | 0.3098 |
 
-**Overall mAP@0.5**: 0.7396  
-**Overall mAP@0.25**: 0.8414
+**Overall mAP@0.5**: 0.2849  
+**Overall mAP@0.25**: 0.3437
 
 ## Dataset
 
 - **Total Images**: 400
-- **Total Objects**: 496
 - **Training/Validation Split**: 80/20
+- **Test Images**: 100
+- **Test Objects**: 135
 - **Input Size**: 320×480×3 pixels
 
-### Class Distribution
-- Electric Vehicles: 223 instances across 201 images
-- Accessible Signs: 167 instances across 144 images  
-- Chargers: 106 instances across 106 images
+### Test Data Distribution
+- Electric Vehicles: 58 instances
+- Accessible Signs: 48 instances  
+- Chargers: 29 instances
 
 ## Architecture
 
@@ -58,7 +59,8 @@ The model uses YOLOv4 architecture with:
 ├── model/
 │   └── trained_yolov4_detector.mat     # Trained model weights (60 epochs)
 ├── labeled_data/
-│   └── parkingTrainGTFINISHED.mat      # Ground truth annotations
+│   ├── parkingTrainGTFINISHED.mat      # Training ground truth annotations
+│   └── parkingTestGT.mat               # Test ground truth annotations
 ├── training_model.mlx                  # Model training script
 ├── evaluating_model.mlx                # Model evaluation and testing
 ├── analyzing_data.mlx                  # Data analysis and visualization
@@ -76,7 +78,7 @@ The model uses YOLOv4 architecture with:
 - **Validation Frequency**: Every 5 epochs
 
 ### Training Progress
-The model achieved excellent convergence over 60 epochs, showing substantial improvement compared to the initial 20-epoch training run.
+The model achieved convergence over 60 epochs of training on the training dataset.
 
 <!-- ![Training Progress](training_progress.png)
 *Training and validation loss curves over 60 epochs*
@@ -151,17 +153,21 @@ imshow(detectedImg);
 
 ## Key Insights
 
-1. **Significant Performance Improvement**: Extended training from 20 to 60 epochs resulted in dramatic improvements:
-   - Overall mAP@0.5 increased from 0.3408 to **0.7396** (+117% improvement)
-   - All classes showed substantial gains in detection accuracy
+1. **Test Performance Analysis**: The model shows varying performance across different object classes when evaluated on unseen test data:
+   - **EV Detection**: Achieved the best performance (AP@0.5: 0.5854), confirming that electric vehicles are the most reliably detected class
+   - **Accessible Signs**: Moderate performance (AP@0.5: 0.2348), indicating room for improvement in detecting smaller signage
+   - **Charger Detection**: Lowest performance (AP@0.5: 0.0345), suggesting this class presents the greatest detection challenge
 
-2. **EV Detection**: Achieved excellent performance (AP@0.5: 0.8666), confirming that larger objects with distinct features are easiest to detect
+2. **Class-Specific Challenges**: 
+   - **EVs**: Larger objects with distinctive features lead to better detection rates
+   - **Chargers**: Small size and potential occlusion make detection difficult
+   - **Accessible Signs**: Variable appearance and size contribute to moderate performance
 
-3. **Charger Detection**: Showed remarkable improvement (AP@0.5: 0.1359 → 0.6766), demonstrating the benefit of extended training for challenging small objects
+3. **IoU Threshold Impact**: Performance improves at lower IoU thresholds (0.25 vs 0.5), indicating the model produces reasonable localizations but may benefit from more precise bounding box regression
 
-4. **Accessible Signs**: Improved significantly (AP@0.5: 0.3464 → 0.6756), benefiting from the additional training epochs
+4. **Detection Threshold Optimization**: The evaluation includes systematic threshold testing to identify optimal detection confidence levels for deployment
 
-5. **Training Duration Impact**: The results clearly demonstrate that sufficient training time is crucial for optimal performance in object detection tasks
+5. **Real-world Applicability**: Test results provide realistic expectations for model performance on new, unseen parking infrastructure images
 
 ## Acknowledgments
 
