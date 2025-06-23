@@ -55,12 +55,12 @@ The model uses YOLOv4 architecture with:
 ## Files Structure
 
 ```
-├── training_model.pdf          # Model training script
-├── evaluating_model.pdf        # Model evaluation and testing
-├── analyzing_data.pdf          # Data analysis and visualization
-├── parkingTrainGTFINISHED.mat  # Ground truth annotations
-├── trained_yolov4_detector.mat # Trained model weights
-└── README.md                   # This file
+├── training_model.mlx              # Model training script
+├── evaluating_model.mlx            # Model evaluation and testing
+├── analyzing_data.mlx              # Data analysis and visualization
+├── parkingTrainGTFINISHED.mat      # Ground truth annotations
+├── trained_yolov4_detector.mat     # Trained model weights
+└── README.md                       # This file
 ```
 
 ## Training Details
@@ -154,15 +154,6 @@ imshow(detectedImg);
 1. **EV Detection**: Achieved the highest performance (AP@0.5: 0.5403), likely due to larger object size and distinct features
 2. **Charger Detection**: Most challenging class (AP@0.5: 0.1359), possibly due to smaller size and visual similarity to other objects
 3. **Accessible Signs**: Moderate performance (AP@0.5: 0.3464), benefiting from standardized design but suffering from varying scales
-
-## Future Improvements
-
-- [ ] Increase dataset size, especially for underperforming classes
-- [ ] Implement data augmentation techniques
-- [ ] Experiment with different anchor box configurations
-- [ ] Try larger input resolutions for better small object detection
-- [ ] Implement multi-scale training and testing
-- [ ] Add hard negative mining for difficult examples
 
 ## Acknowledgments
 
