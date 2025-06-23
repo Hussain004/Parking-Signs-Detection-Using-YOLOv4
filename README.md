@@ -25,12 +25,12 @@ The project was developed as part of a MathWorks Deep Learning for Object Detect
 
 | Class | Objects | AP@0.5 | AP@0.25 |
 |-------|---------|--------|---------|
-| EV | 223 | 0.5403 | 0.6064 |
-| Accessible | 167 | 0.3464 | 0.4853 |
-| Charger | 106 | 0.1359 | 0.1702 |
+| EV | 223 | 0.8666 | 0.9430 |
+| Charger | 106 | 0.6766 | 0.8184 |
+| Accessible | 167 | 0.6756 | 0.7627 |
 
-**Overall mAP@0.5**: 0.3408  
-**Overall mAP@0.25**: 0.4206
+**Overall mAP@0.5**: 0.7396  
+**Overall mAP@0.25**: 0.8414
 
 ## Dataset
 
@@ -55,12 +55,14 @@ The model uses YOLOv4 architecture with:
 ## Files Structure
 
 ```
-├── training_model.mlx              # Model training script
-├── evaluating_model.mlx            # Model evaluation and testing
-├── analyzing_data.mlx              # Data analysis and visualization
-├── parkingTrainGTFINISHED.mat      # Ground truth annotations
-├── trained_yolov4_detector.mat     # Trained model weights
-└── README.md                       # This file
+├── model/
+│   └── trained_yolov4_detector.mat     # Trained model weights (60 epochs)
+├── labeled_data/
+│   └── parkingTrainGTFINISHED.mat      # Ground truth annotations
+├── training_model.mlx                  # Model training script
+├── evaluating_model.mlx                # Model evaluation and testing
+├── analyzing_data.mlx                  # Data analysis and visualization
+└── README.md                           # This file
 ```
 
 ## Training Details
@@ -74,14 +76,12 @@ The model uses YOLOv4 architecture with:
 - **Validation Frequency**: Every 5 epochs
 
 ### Training Progress
-The model achieved convergence with final losses:
-- **Training Loss**: 35.441
-- **Validation Loss**: 35.958
+The model achieved excellent convergence over 60 epochs, showing substantial improvement compared to the initial 20-epoch training run.
 
 <!-- ![Training Progress](training_progress.png)
-*Training and validation loss curves over 20 epochs* -->
+*Training and validation loss curves over 60 epochs*
 
-<!-- ## Evaluation Metrics
+## Evaluation Metrics
 
 ### Precision-Recall Curves
 ![Precision-Recall](precision_recall_curves.png)
@@ -120,19 +120,19 @@ The model achieved convergence with final losses:
 ### Training a New Model
 ```matlab
 % Load the training script
-run('training_model.m')
+run('training_model.mlx')
 ```
 
 ### Evaluating the Model
 ```matlab
 % Load the evaluation script  
-run('evaluating_model.m')
+run('evaluating_model.mlx')
 ```
 
 ### Analyzing Data
 ```matlab
 % Load the data analysis script
-run('analyzing_data.m')
+run('analyzing_data.mlx')
 ```
 
 ### Running Inference
@@ -151,9 +151,26 @@ imshow(detectedImg);
 
 ## Key Insights
 
-1. **EV Detection**: Achieved the highest performance (AP@0.5: 0.5403), likely due to larger object size and distinct features
-2. **Charger Detection**: Most challenging class (AP@0.5: 0.1359), possibly due to smaller size and visual similarity to other objects
-3. **Accessible Signs**: Moderate performance (AP@0.5: 0.3464), benefiting from standardized design but suffering from varying scales
+1. **Significant Performance Improvement**: Extended training from 20 to 60 epochs resulted in dramatic improvements:
+   - Overall mAP@0.5 increased from 0.3408 to **0.7396** (+117% improvement)
+   - All classes showed substantial gains in detection accuracy
+
+2. **EV Detection**: Achieved excellent performance (AP@0.5: 0.8666), confirming that larger objects with distinct features are easiest to detect
+
+3. **Charger Detection**: Showed remarkable improvement (AP@0.5: 0.1359 → 0.6766), demonstrating the benefit of extended training for challenging small objects
+
+4. **Accessible Signs**: Improved significantly (AP@0.5: 0.3464 → 0.6756), benefiting from the additional training epochs
+
+5. **Training Duration Impact**: The results clearly demonstrate that sufficient training time is crucial for optimal performance in object detection tasks
+
+## Future Improvements
+
+- [ ] Increase dataset size, especially for underperforming classes
+- [ ] Implement data augmentation techniques
+- [ ] Experiment with different anchor box configurations
+- [ ] Try larger input resolutions for better small object detection
+- [ ] Implement multi-scale training and testing
+- [ ] Add hard negative mining for difficult examples
 
 ## Acknowledgments
 
