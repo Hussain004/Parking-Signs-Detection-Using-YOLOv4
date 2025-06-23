@@ -25,12 +25,12 @@ The project was developed as part of a MathWorks Deep Learning for Object Detect
 
 | Class | Objects | AP@0.5 | AP@0.25 |
 |-------|---------|--------|---------|
-| EV | 58 | 0.5854 | 0.6523 |
-| Charger | 29 | 0.0345 | 0.0690 |
-| Accessible | 48 | 0.2348 | 0.3098 |
+| EV | 58 | 0.7370 | 0.8443 |
+| Charger | 29 | 0.2186 | 0.3474 |
+| Accessible | 48 | 0.2636 | 0.4011 |
 
-**Overall mAP@0.5**: 0.2849  
-**Overall mAP@0.25**: 0.3437
+**Overall mAP@0.5**: 0.4064  
+**Overall mAP@0.25**: 0.5309
 
 ## Dataset
 
@@ -153,21 +153,21 @@ imshow(detectedImg);
 
 ## Key Insights
 
-1. **Test Performance Analysis**: The model shows varying performance across different object classes when evaluated on unseen test data:
-   - **EV Detection**: Achieved the best performance (AP@0.5: 0.5854), confirming that electric vehicles are the most reliably detected class
-   - **Accessible Signs**: Moderate performance (AP@0.5: 0.2348), indicating room for improvement in detecting smaller signage
-   - **Charger Detection**: Lowest performance (AP@0.5: 0.0345), suggesting this class presents the greatest detection challenge
+1. **Optimized Detection Threshold**: Using a lower detection threshold (0.15) significantly improved model performance compared to the default threshold (0.5):
+   - **EV Detection**: Excellent performance (AP@0.5: 0.7370), confirming electric vehicles are reliably detected due to their larger size and distinctive features
+   - **Accessible Signs**: Moderate performance (AP@0.5: 0.2636), showing room for improvement in detecting smaller signage elements
+   - **Charger Detection**: Improved but still challenging (AP@0.5: 0.2186), indicating the difficulty in detecting small charging station components
 
-2. **Class-Specific Challenges**: 
-   - **EVs**: Larger objects with distinctive features lead to better detection rates
-   - **Chargers**: Small size and potential occlusion make detection difficult
-   - **Accessible Signs**: Variable appearance and size contribute to moderate performance
+2. **Class-Specific Performance Analysis**: 
+   - **EVs**: Consistently the best-performing class across both IoU thresholds, benefiting from larger object size and distinct visual features
+   - **Chargers**: Most challenging class due to small size, potential occlusion, and variable appearance
+   - **Accessible Signs**: Moderate performance, likely affected by sign size variation and environmental conditions
 
-3. **IoU Threshold Impact**: Performance improves at lower IoU thresholds (0.25 vs 0.5), indicating the model produces reasonable localizations but may benefit from more precise bounding box regression
+3. **IoU Threshold Sensitivity**: All classes show improved performance at the more lenient IoU threshold (0.25), suggesting the model produces reasonable object localizations but could benefit from more precise bounding box regression
 
-4. **Detection Threshold Optimization**: The evaluation includes systematic threshold testing to identify optimal detection confidence levels for deployment
+4. **Detection Threshold Optimization**: The systematic evaluation of detection thresholds from 0.1 to 0.9 demonstrates the importance of threshold tuning for optimal performance in real-world deployment
 
-5. **Real-world Applicability**: Test results provide realistic expectations for model performance on new, unseen parking infrastructure images
+5. **Real-world Deployment Considerations**: The test results provide realistic performance expectations, with the optimized threshold showing the model can achieve reasonable detection rates for parking infrastructure monitoring applications
 
 ## Acknowledgments
 
