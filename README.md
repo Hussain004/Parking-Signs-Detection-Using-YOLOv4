@@ -1,6 +1,6 @@
 # Parking Sign Detection using YOLOv4
 
-<!-- ![Demo Image](demo_detection.png) -->
+![Demo Image](img/demo_detection.png)
 *Example of the model detecting EV charging stations, accessible parking signs, and electric vehicles*
 
 ## Overview
