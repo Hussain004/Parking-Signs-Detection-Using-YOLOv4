@@ -163,15 +163,6 @@ imshow(detectedImg);
 
 5. **Training Duration Impact**: The results clearly demonstrate that sufficient training time is crucial for optimal performance in object detection tasks
 
-## Future Improvements
-
-- [ ] Increase dataset size, especially for underperforming classes
-- [ ] Implement data augmentation techniques
-- [ ] Experiment with different anchor box configurations
-- [ ] Try larger input resolutions for better small object detection
-- [ ] Implement multi-scale training and testing
-- [ ] Add hard negative mining for difficult examples
-
 ## Acknowledgments
 
 This project was completed as part of the MathWorks Deep Learning for Object Detection course. The YOLOv4 implementation is based on the MATLAB Computer Vision Toolbox.
